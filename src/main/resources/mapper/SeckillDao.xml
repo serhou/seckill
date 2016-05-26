@@ -4,17 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.seckill.dao.SeckillDao">
-    <!--目的：为dao接口方法提供sql语句配置-->
-    <update id="reduceNumber">
-        UPDATE
-          seckill
-        SET
-          number = number-1
-        WHERE  seckill_id = #{seckillId}
-        AND start_time <![CDATA[ <= ]] # {killTime}
-        AND end_time >= #{killTime}
-        AND number > 0;
-    </update>
 
     <select id="queryById" resultType="Seckill" parameterType="long">
         SELECT seckill_id, name, number, start_time, end_time, create_time
@@ -26,7 +15,11 @@
         SELECT seckill_id, name, number, start_time, end_time, create_time
         FROM seckill
         ORDER BY create_time DESC
-        limit #{offset},#{limit}
+        limit #{offset}, #{limit}
     </select>
 
+    <!--目的：为dao接口方法提供sql语句配置-->
+    <update id="reduceNumber">
+        UPDATE seckill SET number = number-1 WHERE  seckill_id = #{seckillId} AND start_time <![CDATA[ <= ]]>  #{killTime} AND end_time <![CDATA[ >= ]]>  #{killTime} AND number <![CDATA[ > ]]> 0
+    </update>
 </mapper>
