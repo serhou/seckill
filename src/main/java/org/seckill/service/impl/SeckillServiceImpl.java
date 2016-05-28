@@ -28,7 +28,7 @@ import java.util.List;
 @Service
 public class SeckillServiceImpl implements SeckillService {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired //或者j2ee规范：@Resource @Inject
     private SeckillDao seckillDao;
@@ -85,7 +85,7 @@ public class SeckillServiceImpl implements SeckillService {
     @Transactional
     public SeckillExecution executteSeckill(long seckillId, long uesrPhone, String md5)
             throws SeckillException, RepeatKillException, SeckillCloseException {
-        if(md5 == null || md5.equals(getMD5(seckillId))){
+        if(md5 == null || !md5.equals(getMD5(seckillId))){
             throw new SeckillException("seckill data rewrite");
         }
         //执行秒杀逻辑：减库存+记录购买行为
