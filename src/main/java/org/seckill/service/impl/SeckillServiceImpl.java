@@ -13,6 +13,9 @@ import org.seckill.exception.SeckillException;
 import org.seckill.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
@@ -21,12 +24,16 @@ import java.util.List;
 /**
  * Created by think on 2016-05-28-0028.
  */
+//@Component @Service @Dao @Controller
+@Service
 public class SeckillServiceImpl implements SeckillService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired //或者j2ee规范：@Resource @Inject
     private SeckillDao seckillDao;
 
+    @Autowired
     private SuccessKilledDao successKilledDao;
 
     private final String salt = "悔教夫婿觅封侯";
@@ -62,6 +69,20 @@ public class SeckillServiceImpl implements SeckillService {
         return md5;
     }
 
+    /**
+     * 使用注解控制事务方法的优点
+     * 1、开发团队达成一致约定，明确标注事务方法的编程风格
+     * 2、保证事务方法的执行时间尽可能短，不要穿插其他的网络操作，RPC/HTTP请求/或者剥离到事务方法外部
+     * 3、不是所有的方法都需要事务，如只有一条修改操作，或者只读操作不需要事务控制
+     * @param seckillId
+     * @param uesrPhone
+     * @param md5
+     * @return
+     * @throws SeckillException
+     * @throws RepeatKillException
+     * @throws SeckillCloseException
+     */
+    @Transactional
     public SeckillExecution executteSeckill(long seckillId, long uesrPhone, String md5)
             throws SeckillException, RepeatKillException, SeckillCloseException {
         if(md5 == null || md5.equals(getMD5(seckillId))){
