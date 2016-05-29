@@ -51,15 +51,15 @@
 </div>
 </body>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/resource/script/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/2.0.1/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/resource/script/bootstrap.min.js"></script>
+<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <!--jQuery cookie操作插件-->
-<script src="/resource/script/jquery.cookie.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!--jQuery countDown倒计时插件-->
-<script src="/resource/script/jquery.plugin.min.js"></script>
-<script src="/resource/script/jquery.countdown.min.js"></script>
-<script src="/resource/script/jquery.countdown-zh-CN.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery-countdown/2.0.2/jquery.plugin.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery-countdown/2.0.2/jquery.countdown.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery-countdown/2.0.2/jquery.countdown-zh-CN.min.js"></script>
 <!--开始编写交互逻辑-->
 <script src="/resource/script/seckill.js"></script>
 <script type="application/javascript">

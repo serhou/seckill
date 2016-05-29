@@ -45,4 +45,10 @@
         <!--给出需要扫描Dao接口包-->
         <property name="basePackage" value="org.seckill.dao"/>
     </bean>
+
+    <!--RedisDao-->
+    <bean id="redisDao" class="org.seckill.dao.RedisDao">
+        <constructor-arg index="0" value="192.168.18.129"/><!--redis在虚拟机CentOS里面装的-->
+        <constructor-arg index="1" value="6379"/>
+    </bean>
 </beans>

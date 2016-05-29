@@ -1,5 +1,6 @@
 package org.seckill.service.impl;
 
+import org.seckill.dao.RedisDao;
 import org.seckill.dao.SeckillDao;
 import org.seckill.dao.SuccessKilledDao;
 import org.seckill.dto.Exposer;
@@ -36,6 +37,9 @@ public class SeckillServiceImpl implements SeckillService {
     @Autowired
     private SuccessKilledDao successKilledDao;
 
+    @Autowired
+    private RedisDao redisDao;
+
     private final String salt = "悔教夫婿觅封侯";
 
     public List<Seckill> getSeckillList() {
@@ -47,9 +51,18 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     public Exposer exportSeckillUrl(long seckillId) {
-        Seckill seckill = getById(seckillId);
+        //优化点：缓存优化
+        //1：访问redis
+        Seckill seckill = redisDao.getSeckill(seckillId);
         if(seckill == null){
-            return new Exposer(false, seckillId);
+            //2:访问数据库
+            seckill = getById(seckillId);
+            if(seckill == null){
+                return new Exposer(false, seckillId);
+            } else {
+                //2：放入redis
+                redisDao.putSeckill(seckill);
+            }
         }
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
